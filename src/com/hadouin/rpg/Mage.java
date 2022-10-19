@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mage extends SpellCaster {
-    List<Spell> learnedSpells = new ArrayList<Spell>();
+    List<Spell> learnedSpells = new ArrayList<>();
     public Mage(){
-        this.setClassName("com.hadouin.rpg.Mage");
+        this.setClassName("Mage");
+        this.lifePoints = 15;
+        this.baseAttack = 2;
+
     }
     public void attack(List<Enemy> enemies){
         Spell selectedSpell = selectSpell();
@@ -18,7 +21,7 @@ public class Mage extends SpellCaster {
         System.out.println("You have " + manaPoints + " mana");
         InputAsker inputAsker = new InputAsker(System.in, System.out);
 
-        List<String> spellStringList = new ArrayList<String>();
+        List<String> spellStringList = new ArrayList<>();
         for (Spell spell : learnedSpells) {
             spellStringList.add(spell.name + "mana: " + spell.manaCost);
         }

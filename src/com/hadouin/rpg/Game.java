@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
-    List<Hero> heroes = new ArrayList<Hero>();
+    List<Hero> heroes = new ArrayList<>();
     int playerTurn;
     int partySize;
     final InputAsker inputAsker = new InputAsker(System.in, System.out);
-    final  String[] heroClasses = new String[]{"com.hadouin.rpg.Warrior", "com.hadouin.rpg.Mage"};
+    final  String[] heroClasses = new String[]{"Warrior", "Mage"};
     boolean gameRunning = false;
 
     public void start(){
@@ -44,7 +44,7 @@ public class Game {
     }
 
     private void launchBattle(List<Enemy> enemies) {
-        List<Enemy> remainingEnemies = new ArrayList<Enemy>(enemies);
+        List<Enemy> remainingEnemies = new ArrayList<>(enemies);
 
         while (! remainingEnemies.isEmpty() && ! heroes.isEmpty()) {
             System.out.println("It's " + heroes.get(playerTurn).name + "'s turn to play. HP=" + heroes.get(playerTurn).lifePoints);
@@ -117,15 +117,13 @@ public class Game {
 
             int classChoiceIndex = inputAsker.getStringsChoiceIndex("Player " + heroID + " choose your class: ", heroClasses);
             switch (heroClasses[classChoiceIndex]) {
-                case "com.hadouin.rpg.Warrior":
-                    heroes.add(new Warrior());
-                    break;
-                case "com.hadouin.rpg.Mage":
+                case "Warrior" -> heroes.add(new Warrior());
+                case "Mage" -> {
                     Mage mage = new Mage();
                     mage.learnedSpells.add(new Fireball());
                     heroes.add(mage);
-                default:
-                    throw new RuntimeException("Class does not exist");
+                }
+                default -> throw new RuntimeException("Class does not exist");
             }
         }
     }
