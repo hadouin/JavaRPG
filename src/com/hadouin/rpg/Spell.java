@@ -7,5 +7,5 @@ public abstract class Spell {
     String name;
     String description;
 
-    public abstract void attack(List<Enemy> enemies, Hero attacker);
+    public abstract void cast(List<Enemy> enemies, Hero attacker);
 }

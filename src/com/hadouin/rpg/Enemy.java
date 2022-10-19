@@ -9,7 +9,7 @@ public class Enemy {
     int attackDamage = 2;
     int armor;
     int xpGiven;
-    List<Hero> involvedHeroes = new ArrayList<Hero>();
+    List<Hero> involvedHeroes = new ArrayList<>();
 
     public void attack(List<Hero> heroesToAttack) {
         Random rand = new Random();

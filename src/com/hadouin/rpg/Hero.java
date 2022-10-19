@@ -31,7 +31,7 @@ public abstract class Hero {
 
     public Hero(){
         InputAsker inputAsker = new InputAsker(System.in, System.out);
-        name = inputAsker.promptWord("What will your name be ?");
+        name = inputAsker.promptWord("What will your name be ?: ");
 
     }
 

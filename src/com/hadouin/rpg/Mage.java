@@ -10,11 +10,16 @@ public class Mage extends SpellCaster {
         this.setClassName("Mage");
         this.lifePoints = 15;
         this.baseAttack = 2;
+        this.manaPoints = 50;
 
     }
     public void attack(List<Enemy> enemies){
         Spell selectedSpell = selectSpell();
-        selectedSpell.attack(enemies, this);
+        if (selectedSpell.manaCost <= manaPoints) {
+            manaPoints -= selectedSpell.manaCost;
+            selectedSpell.cast(enemies, this);
+        }
+
     }
 
     private Spell selectSpell() {
@@ -23,7 +28,7 @@ public class Mage extends SpellCaster {
 
         List<String> spellStringList = new ArrayList<>();
         for (Spell spell : learnedSpells) {
-            spellStringList.add(spell.name + "mana: " + spell.manaCost);
+            spellStringList.add(spell.name + " manaCost: " + spell.manaCost);
         }
         String[] spellStrings = new String[spellStringList.size()];
         spellStringList.toArray(spellStrings);
