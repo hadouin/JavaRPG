@@ -17,15 +17,20 @@ public class InputAsker {
         out.print(message);
         return scanner.next();
     }
+    public char promptChar(String message) {
+        out.print(message);
+        return scanner.next().charAt(0);
+    }
+
     public int promptInt(String message, int defaultInt) {
         out.print(message);
-        if (!scanner.hasNextInt() ) {
+        /* if (!scanner.hasNextInt() ) {
             return defaultInt;
-        }
+        } */
         return scanner.nextInt();
     }
 
-    public String chooseStringWithIndex(String message, String @NotNull [] entries) {
+    public int getStringsChoiceIndex(String message, String @NotNull [] entries) {
         out.println(message);
         for (int i = 0; i < entries.length; i++) {
             out.print(i + ". ");
@@ -36,7 +41,12 @@ public class InputAsker {
             choice = promptInt("Your choice: ", -1);
         } while (choice < 0 || choice > entries.length);
         out.println("\n You chose: " + entries[choice]);
-        return entries[choice];
+        return choice;
+    }
+
+    public boolean getBooleanChoice(String message) {
+        char choice = promptChar(message + " [Y/n]");
+            return !(choice == 'N' || choice == 'n');
     }
 
     public String chooseStringWithGUI(String message, String @NotNull [] entries) {

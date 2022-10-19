@@ -3,4 +3,5 @@ public abstract class SpellCaster extends Hero {
     public boolean hasEnoughMana(Spell spell) {
         return spell.manaCost > manaPoints;
     }
+
 }

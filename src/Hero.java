@@ -1,9 +1,22 @@
+import java.util.List;
+
 public abstract class Hero {
     int lifePoints;
     int armor;
     int baseAttack;
+    int XP;
+    int level;
     String name;
     String className;
+
+    public void addXP(int amount) {
+        this.XP += amount;
+        checkLevelUp();
+    }
+
+    private void checkLevelUp() {
+
+    }
 
     public String getClassName() {
         return className;
@@ -19,8 +32,11 @@ public abstract class Hero {
 
     }
 
-    public void attack(Enemy enemy) {
-        enemy.defend(baseAttack);
+    public void attack(List<Enemy> enemies) {
+        Enemy enemy = enemies.get(0);
+        // TODO: choose which enemy to attack:
+        System.out.println("You attack: " + enemy);
+        enemy.defend(baseAttack, this);
     }
 
     public void defend(int attackDamage) {

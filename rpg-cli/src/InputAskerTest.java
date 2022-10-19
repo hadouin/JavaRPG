@@ -22,7 +22,8 @@ public class InputAskerTest {
         ByteArrayInputStream in = new ByteArrayInputStream(inputString.getBytes());
 
         System.setIn(in);
-        assertEquals(expectedString, new InputAsker(System.in, System.out).chooseStringWithIndex("message:", inputEntries));
+        InputAsker tmpInputAsker = new InputAsker(System.in, System.out);
+        assertEquals(expectedString, inputEntries[tmpInputAsker.getStringsChoiceIndex("message:", inputEntries)]);
         // optionally, reset System.in to its original
         System.setIn(sysInBackup);
     }
@@ -34,8 +35,8 @@ public class InputAskerTest {
         String concatString = String.join("\n", inputStrings);
         InputStream stream = new ByteArrayInputStream(concatString.getBytes(StandardCharsets.UTF_8));
 
-        System.setIn(stream);
-        assertEquals(expectedString, inputAsker.chooseStringWithIndex("message", inputEntries));
+        InputAsker tmpInputAsker = new InputAsker(System.in, System.out);
+        assertEquals(expectedString, inputEntries[tmpInputAsker.getStringsChoiceIndex("message:", inputEntries)]);
 
         // optionally, reset System.in to its original
         System.setIn(sysInBackup);

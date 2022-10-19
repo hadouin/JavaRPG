@@ -1,40 +1,133 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class Game {
-    static List<Hero> heroes = new ArrayList<Hero>();
-    static int playerTurn;
-    static int partySize;
-    static final InputAsker inputAsker = new InputAsker(System.in, System.out);
+    List<Hero> heroes = new ArrayList<Hero>();
+    int playerTurn;
+    int partySize;
+    final InputAsker inputAsker = new InputAsker(System.in, System.out);
+    final  String[] heroClasses = new String[]{"Warrior", "Mage"};
+    boolean gameRunning = false;
 
-    public static void main(String[] args){
+    public void start(){
 
         initGame();
+        gameLoop();
+    }
+
+    private void gameLoop() {
+        // idee faire des vagues d'ennemis de plus en plus forts avec tous les 5 un boss stocker
+        int baseEnemies = 0;
+        Random rand = new Random();
+
+        while (gameRunning) {
+
+            baseEnemies++;
+
+            // create enemies
+            List<Enemy> enemiesPool = new ArrayList<>();
+            for (int i = 0; i < baseEnemies + rand.nextInt(3); i++ ) {
+                enemiesPool.add(new Enemy());
+            }
+
+            launchBattle(enemiesPool);
+
+
+        }
 
     }
-    private static void initGame() {
+
+    private void launchBattle(List<Enemy> enemies) {
+        List<Enemy> remainingEnemies = new ArrayList<Enemy>(enemies);
+
+        while (! remainingEnemies.isEmpty() && ! heroes.isEmpty()) {
+            System.out.println("It's " + heroes.get(playerTurn).name + "'s turn to play. HP=" + heroes.get(playerTurn).lifePoints);
+            System.out.println(remainingEnemies);
+
+            String[] actionChoices = new String[]{"attack", "skip"};
+            int choiceIndex = inputAsker.getStringsChoiceIndex("What will you do ?", actionChoices);
+            switch (actionChoices[choiceIndex]) {
+                case "attack":
+                    heroes.get(playerTurn).attack(remainingEnemies);
+                    break;
+                case "skip":
+                    break;
+                default:
+                    break;
+            }
+
+            // Test enemy death
+            deathReaper(remainingEnemies);
+
+            //Next player's turn
+            if (playerTurn == heroes.size() -1) {
+                enemiesTurn(remainingEnemies);
+                playerTurn = 0;
+            } else {
+                playerTurn++;
+            }
+
+            //Test Heroes Death
+            testHeroesDeath(heroes);
+        }
+
+        System.out.println("no remaining enemies for this battle");
+
+        // Upgrade heroes
+    }
+
+    private void deathReaper(List<Enemy> enemies) {
+        Iterator<Enemy> i = enemies.iterator();
+        while (i.hasNext()) {
+            Enemy enemy = i.next(); // must be called before you can call i.remove()
+            if (enemy.lifePoints <= 0) {
+                enemy.die();
+                i.remove();
+            }
+        }
+    }
+    private void testHeroesDeath(List<Hero> heroes) {
+        heroes.removeIf(hero -> hero.lifePoints <= 0);
+        if (heroes.isEmpty()) {
+            gameRunning = false;
+        }
+
+    }
+
+    private void enemiesTurn(List<Enemy> remainingEnemies) {
+        for (Enemy enemy : remainingEnemies) {
+            enemy.attack(heroes);
+        }
+    }
+
+    private void initGame() {
         choosePartySize();
         for (int i = 0; i < partySize ; i++){
             createHeroes();
         }
-
+        gameRunning = true;
     }
-    private static void createHeroes() {
+    private void createHeroes() {
         // For each player create a Hero
         for (int heroID = 0; heroID < partySize; heroID++) {
-            String classChoice = inputAsker.chooseStringWithIndex("Player " + heroID + " choose your class: ", new String[]{"Warrior", "Mage"});
-            switch (classChoice) {
+
+            int classChoiceIndex = inputAsker.getStringsChoiceIndex("Player " + heroID + " choose your class: ", heroClasses);
+            switch (heroClasses[classChoiceIndex]) {
                 case "Warrior":
                     heroes.add(new Warrior());
                     break;
                 case "Mage":
-                    heroes.add(new Mage());
+                    Mage mage = new Mage();
+                    mage.learnedSpells.add(new Fireball());
+                    heroes.add(mage);
                 default:
                     throw new RuntimeException("Class does not exist");
             }
         }
     }
-    private static void choosePartySize() {
+    private void choosePartySize() {
 
         // Choose party size
         do {
