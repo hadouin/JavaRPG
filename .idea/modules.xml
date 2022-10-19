@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/rpg.iml" filepath="$PROJECT_DIR$/rpg.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rpg-cli/rpg-cli.iml" filepath="$PROJECT_DIR$/rpg-cli/rpg-cli.iml" />
     </modules>
   </component>
 </project>
