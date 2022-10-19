@@ -1,3 +1,6 @@
+package com.hadouin.rpg;
+
+import com.hadouin.utils.InputAsker;
 import java.util.List;
 
 public abstract class Hero {

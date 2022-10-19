@@ -1,3 +1,7 @@
+package com.hadouin.rpg;
+
+import com.hadouin.utils.InputAsker;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,7 +12,7 @@ public class Game {
     int playerTurn;
     int partySize;
     final InputAsker inputAsker = new InputAsker(System.in, System.out);
-    final  String[] heroClasses = new String[]{"Warrior", "Mage"};
+    final  String[] heroClasses = new String[]{"com.hadouin.rpg.Warrior", "com.hadouin.rpg.Mage"};
     boolean gameRunning = false;
 
     public void start(){
@@ -104,21 +108,19 @@ public class Game {
 
     private void initGame() {
         choosePartySize();
-        for (int i = 0; i < partySize ; i++){
-            createHeroes();
-        }
+        createHeroes();
         gameRunning = true;
     }
     private void createHeroes() {
-        // For each player create a Hero
+        // For each player create a com.hadouin.rpg.Hero
         for (int heroID = 0; heroID < partySize; heroID++) {
 
             int classChoiceIndex = inputAsker.getStringsChoiceIndex("Player " + heroID + " choose your class: ", heroClasses);
             switch (heroClasses[classChoiceIndex]) {
-                case "Warrior":
+                case "com.hadouin.rpg.Warrior":
                     heroes.add(new Warrior());
                     break;
-                case "Mage":
+                case "com.hadouin.rpg.Mage":
                     Mage mage = new Mage();
                     mage.learnedSpells.add(new Fireball());
                     heroes.add(mage);

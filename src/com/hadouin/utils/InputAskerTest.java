@@ -1,6 +1,7 @@
-import static org.junit.jupiter.api.Assertions.*;
+package com.hadouin.utils;
 
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -23,7 +24,7 @@ public class InputAskerTest {
 
         System.setIn(in);
         InputAsker tmpInputAsker = new InputAsker(System.in, System.out);
-        assertEquals(expectedString, inputEntries[tmpInputAsker.getStringsChoiceIndex("message:", inputEntries)]);
+        Assertions.assertEquals(expectedString, inputEntries[tmpInputAsker.getStringsChoiceIndex("message:", inputEntries)]);
         // optionally, reset System.in to its original
         System.setIn(sysInBackup);
     }
@@ -36,7 +37,7 @@ public class InputAskerTest {
         InputStream stream = new ByteArrayInputStream(concatString.getBytes(StandardCharsets.UTF_8));
 
         InputAsker tmpInputAsker = new InputAsker(System.in, System.out);
-        assertEquals(expectedString, inputEntries[tmpInputAsker.getStringsChoiceIndex("message:", inputEntries)]);
+        Assertions.assertEquals(expectedString, inputEntries[tmpInputAsker.getStringsChoiceIndex("message:", inputEntries)]);
 
         // optionally, reset System.in to its original
         System.setIn(sysInBackup);

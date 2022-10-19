@@ -1,4 +1,4 @@
-import org.jetbrains.annotations.NotNull;
+package com.hadouin.utils;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -30,7 +30,7 @@ public class InputAsker {
         return scanner.nextInt();
     }
 
-    public int getStringsChoiceIndex(String message, String @NotNull [] entries) {
+    public int getStringsChoiceIndex(String message, String [] entries) {
         out.println(message);
         for (int i = 0; i < entries.length; i++) {
             out.print(i + ". ");
@@ -49,7 +49,7 @@ public class InputAsker {
             return !(choice == 'N' || choice == 'n');
     }
 
-    public String chooseStringWithGUI(String message, String @NotNull [] entries) {
+    public String chooseStringWithGUI(String message, String[] entries) {
         String ANSI_WHITE_BACKGROUND = "\u001B[47m";
         String ANSI_RESET = "\u001B[0m";
         int selectedIndex = 0;

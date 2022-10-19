@@ -1,3 +1,5 @@
+package com.hadouin.rpg;
+
 import java.util.List;
 
 public class Fireball extends Spell{

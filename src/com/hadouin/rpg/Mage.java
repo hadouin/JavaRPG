@@ -1,10 +1,13 @@
+package com.hadouin.rpg;
+
+import com.hadouin.utils.InputAsker;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Mage extends SpellCaster {
     List<Spell> learnedSpells = new ArrayList<Spell>();
     public Mage(){
-        this.setClassName("Mage");
+        this.setClassName("com.hadouin.rpg.Mage");
     }
     public void attack(List<Enemy> enemies){
         Spell selectedSpell = selectSpell();
